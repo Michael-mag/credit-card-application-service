@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: cc_application
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  swagger:
+    image: swaggerapi/swagger-ui
+    container_name: swagger-container
+    environment:
+      SWAGGER_JSON: /v2/api-docs
+    ports:
+      - "8004:8080"
+    volumes:
+      - ./src/main/resources/static/api-docs:/api-docs
+
+volumes:
+  mysql-data:
